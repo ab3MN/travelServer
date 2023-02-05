@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!---------------------- STYLE --------------------->
+    <style>
+      body {
+        min-width: 1000px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+        box-sizing: inherit;
+        line-height: 1.2;
+      }
+
+      li {
+        list-style-type: none;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+        padding: 0;
+      }
+
+      button {
+        width: 80px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        height: 28px;
+        border: none;
+        color: white;
+        font-size: 20px;
+      }
+
+      button:hover,
+      :focus {
+        cursor: pointer;
+      }
+
+      section {
+        margin-bottom: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      section article ul {
+        display: none;
+      }
+
+      section ul h4 {
+        padding-left: 20px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      section ul li {
+        padding-bottom: 10px;
+      }
+
+      section ul li span {
+        text-transform: uppercase;
+        color: rgb(9, 22, 202);
+      }
+
+      section ul li b {
+        font-size: 18px;
+      }
+
+      .button__span {
+        font-style: italic;
+      }
+
+      .section__box {
+        display: none;
+      }
+
+      .section__title--button {
+        background-color: rgb(42, 196, 55);
+        width: 300px;
+        height: 40px;
+        display: block;
+        margin: 20px auto;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      h1,
+      h4 {
+        text-align: center;
+      }
+
+      .model {
+        width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .model__title {
+        font-size: 24px;
+      }
+      .default {
+        font-style: italic;
+        font-size: 16px;
+      }
+
+      .model li {
+        width: 300px;
+        padding-bottom: 10px;
+      }
+
+      h1 {
+        margin-top: 20px;
+      }
+
+      body:last-child {
+        margin-bottom: 40px;
+      }
+
+      .get__btn {
+        background-color: rgb(93, 93, 236);
+        color: white;
+      }
+
+      .post__btn {
+        background-color: rgb(42, 196, 55);
+      }
+
+      .patch__btn {
+        background-color: rgb(216, 216, 70);
+      }
+
+      .delete__btn {
+        background-color: rgb(218, 69, 69);
+      }
+      .put__btn {
+        background-color: coral;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Instruction</h1>
+    <h4 style="font-style: italic">https://brainy-tutu.cyclic.app</h4>
+    <!---------------------- USER --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">Authorization</button>
+
+      <div class="section__box">
+        <ul class="model">
+          <h4>User model:</h4>
+          <li><b class="model__title"> password:</b> String <b>required</b></li>
+          <li><b class="model__title"> email:</b> String <b>required</b></li>
+          <li>
+            <b class="model__title"> avatar:</b>
+            String
+            <br /><b class="default">default:</b>img size 80px
+          </li>
+        </ul>
+        <!---------------------- SIGN UP --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button
+            ><span class="button__span">/users/signup</span>
+          </div>
+          <ul>
+            <h4>await email password</h4>
+            <li>
+              if no email <b>return</b> <span>status 401 </span>Email is
+              required
+            </li>
+            <li>
+              if no password <b>return</b> <span>status 401 </span>Password is
+              required
+            </li>
+            <li>
+              if email in use <b>return</b> <span>status 409 </span>Email in use
+            </li>
+            <li>
+              if OK <b>return</b> <span>status 201</span> + User + accessToken +
+              refreshToken
+            </li>
+          </ul>
+        </article>
+        <!---------------------- LOG IN --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button
+            ><span class="button__span">/users/login</span>
+          </div>
+          <ul>
+            <h4>await email password</h4>
+            <li>
+              if no email <b>return</b> <span>status 401 </span>Email is
+              required
+            </li>
+            <li>
+              if no password <b>return</b> <span>status 401 </span>Password is
+              required
+            </li>
+            <li>
+              if wrong email <b>return</b> <span>status 401 </span>Email is
+              wrong
+            </li>
+            <li>
+              if wrong password <b>return</b> <span>status 401 </span>Password
+              is wrong
+            </li>
+            <li>
+              if OK<b> return</b> <span>status 200</span> + User + accessToken +
+              refreshToken
+            </li>
+          </ul>
+        </article>
+        <!---------------------- AUTH --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button
+            ><span class="button__span">/users/auth</span>
+          </div>
+          <ul>
+            <h4>await refresh token</h4>
+            <li>
+              if no token <b>return</b> <span>status 401 </span>Not authorized
+            </li>
+
+            <li>
+              if wrong token <b>return</b> <span>status 403 </span>Bad token
+            </li>
+            <li>if Ok <b>return</b> <span>status 200</span> + User</li>
+          </ul>
+        </article>
+        <!---------------------- LOG OUT --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button
+            ><span class="button__span">/users/logout</span>
+          </div>
+          <ul>
+            <h4>await refresh token</h4>
+            <li>
+              if no token <b>return</b> <span>status 401 </span>Not authorized
+            </li>
+            <li>
+              if wrong token <b>return</b> <span>status 403 </span>Bad token
+            </li>
+            <li>
+              if OK <b>return</b>
+              <span>status 204</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!---------------------- SCRIPT --------------------->
+    <script>
+      document.querySelectorAll('[id=button]').forEach(
+        (el) =>
+          (el.onclick = () => {
+            const div = el.nextElementSibling;
+
+            (el.className === 'section__title--button' &&
+              div.style.display === 'none') ||
+            div.style.display === ''
+              ? (div.style.display = 'block')
+              : (div.style.display = 'none');
+          })
+      );
+      document.querySelectorAll('[id=ul_button]').forEach(
+        (el) =>
+          (el.onclick = () => {
+            const ul = el.parentElement.nextElementSibling;
+
+            ul.style.display === 'none' || ul.style.display === ''
+              ? (ul.style.display = 'block')
+              : (ul.style.display = 'none');
+          })
+      );
+    </script>
+  </body>
+</html>

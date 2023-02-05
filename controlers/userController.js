@@ -1,6 +1,12 @@
 const { signUp, logIn } = require('../services/users/userServices');
 const { getUserWithToken } = require('../middlewares/users/getUserWithToken');
 
+const {
+  userSignUpError,
+  userLoginError,
+} = require('../middlewares/users/usersErrors');
+
+/* ==================== Sign Up ==================== */
 const _signUp = async (req, res, next) => {
   try {
     const user = await signUp(req.body);
@@ -8,14 +14,18 @@ const _signUp = async (req, res, next) => {
 
     const userWithTokens = await getUserWithToken(res, user);
 
-    return res.send({
-      ...userWithTokens,
-    });
+    return res
+      .send({
+        ...userWithTokens,
+      })
+      .status(201);
   } catch (e) {
-    require('../middlewares/users/usersErrors').userSignUpError(e, res);
+    userSignUpError(e, res);
     next(e);
   }
 };
+
+/* ==================== Log In ==================== */
 const _logIn = async (req, res, next) => {
   try {
     const user = await logIn(req.body);
@@ -25,11 +35,12 @@ const _logIn = async (req, res, next) => {
       ...userWithTokens,
     });
   } catch (e) {
-    require('../middlewares/users/usersErrors').userLoginError(e, res);
+    userLoginError(e, res);
     next(e);
   }
 };
 
+/* ==================== Auth ==================== */
 const _auth = async (req, res, next) => {
   try {
     req.user
@@ -41,6 +52,8 @@ const _auth = async (req, res, next) => {
     next(e);
   }
 };
+
+/* ==================== Log Out ==================== */
 const _logOut = async (req, res, next) => {
   try {
     if (req.user) {
